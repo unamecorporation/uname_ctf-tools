@@ -112,7 +112,7 @@
               <hr>
               Para executar um código C em Linux, você precisa primeiro compilar utilizando o GCC:
               <code>
-                gcc vigenere.c -o vigenere
+                gcc vigenere.c -o vigenere<br>
                 ../vigenere -t "ATACAR BASE SUL" -k limao -e
               </code>
           </blockquote>
