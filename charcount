@@ -1,0 +1,76 @@
+#!/usr/bin/python3.5
+# -*- coding: utf-8 -*-
+# Dev by: Vandal VNL | MrZero
+
+# Cálculo de frequência em uma string e Índice Kappa
+# Script para análise de frequência de um determinado caractere
+# em uma sequência de strings
+# Kappa = Letra do Alfabeto grego
+# Indice Kappa é o indice de frequência de letras em uma frase
+# analisada
+
+import sys, os
+
+#vetor com alfabeto de contagem dos parâmetros, a contagem inclui
+# números, letras e letras com acento
+alfabeto = ["a","b","c","d","e","f","g","h","i","j",
+            "k","l","m","n","o","p","q","r","s","t",
+            "u","v","w","x","y","z","á","à","ã","è",
+            "é","ẽ","í","ì","ĩ","ó","ò","õ","ú","ù","ũ"
+            "1","2","3","4","5","6","7","8","9","0"]
+
+# Informando a frase e o caractere
+def banner():
+    print ('''
+      ____ _   _    _    ____   ____ ___  _   _ _   _ _____
+     / ___| | | |  / \  |  _ \ / ___/ _ \| | | | \ | |_   _|
+    | |   | |_| | / _ \ | |_) | |  | | | | | | |  \| | | |
+    | |___|  _  |/ ___ \|  _ <| |__| |_| | |_| | |\  | | |
+     \____|_| |_/_/   \_\_| \_\\\____\___/ \___/|_| \_| |_|
+    ''')
+
+def menuhelp():
+    print ("\nParâmetros do charcount:")
+    print ("\t-h or --help:\tChama esse menu de ajuda")
+    print ("\n./charcount 'insira sua frase aqui'")
+    print ("python3.5 charcount 'insira sua frase aqui'")
+    exit()
+
+if "charcount" in sys.argv[-1] and len(sys.argv) == 1:
+    banner()
+    menuhelp()
+else:
+    frase = sys.argv[1]
+
+if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+    banner()
+    menuhelp()
+
+# transformando a frase em letra minúscula
+temporario = frase.lower()
+
+# variaveis de contagem e estrutura
+contador = 0
+letraatual = 0
+total = len(frase)
+form = 0
+
+print ("Tamanho total da string:",total)
+
+# loop para todas contar as letras do alfabeto
+for analise in range(0,len(alfabeto)):
+    # loop em todas as letras da frase
+    for letras in range(0,len(frase)):
+        if temporario[letras] == alfabeto[contador].lower():
+            letraatual += 1
+    #calcula porcentagem de frequencia
+    porcent = letraatual / total * 100
+    form += (letraatual*(letraatual-1)/(total*(total-1)))
+    if letraatual!=0:
+        print ("\t",alfabeto[contador],"- Frequência:",letraatual,"- %.2f" % porcent,"%")
+        
+    # zera a contagem de letras e porcentagem, acrescenta 1 para a proxima letra
+    letraatual = 0
+    porcent = 0
+    contador += 1
+print ("Indice Kappa: %.5f"% form)

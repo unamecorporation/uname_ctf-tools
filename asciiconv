@@ -1,0 +1,109 @@
+#!/usr/bin/python3.5
+#coding: utf-8
+# Dev: Vandal VNL && Zero, for CTF Tools in KurupiraOS
+# Conversão de Texto -> ASCII
+# ASCII -> Texto
+# ASCII, Texto -> Binário
+# Decimal -> binário
+# Texto -> Binário
+
+import sys,os
+
+# funções de banner e menu de ajuda
+def banner():
+    print ('''      _    ____   ____ ___ ___ ____ ___  _   ___     __
+     / \  / ___| / ___|_ _|_ _/ ___/ _ \| \ | \ \   / /
+    / _ \ \___ \| |    | | | | |  | | | |  \| |\ \ / /
+   / ___ \ ___) | |___ | | | | |__| |_| | |\  | \ V /
+  /_/   \_\____/ \____|___|___\____\___/|_| \_|  \_/
+    ''')
+
+def menuhelper():
+    print ("\t-h | --help:\tChama esse menu de ajuda")
+    print ("\t-a | --ascii:\tConverte de Texto para ASCII")
+    print ("\t-b | --bin:\tConverte de Decimal para Binário")
+    print ("\t-c | --code:\tConverte de Texto para Binário")
+    print ("\t-t | --txt:\tConverte de ASCII para Texto")
+    print ()
+    print ("asciiconv -t 65 32 66 32 67")
+    print ("asciiconv -a \"Testando\"")
+    exit()
+
+# Funções do programa para conversões
+
+# Convertendo para ASCII
+def codingascii(frase):
+    print()
+    for letra in frase:
+        print ("%i "%ord(letra), end="")
+    print()
+
+# Convertendo de ascii para texto
+def decodingascii(frase):
+    print()
+    parsnum = sys.argv
+    lista = parsnum[2:len(parsnum)]
+    contador = 0
+
+    for converter in lista:
+        atual = int(lista[contador])
+        #print (chr(atual))
+        print ("%s"%chr(atual), end="")
+        contador += 1
+    print ()
+
+# Codificação em binário
+
+def codebin(frase):
+    parsnum = sys.argv
+    lista = parsnum[2:len(parsnum)]
+    for a in lista:
+        binario = int(a)
+        print ("%s "%bin(binario)[2:len(bin(binario))],end="")
+    print()
+
+# TEXT TO DECIMAL -> ASCII -> BIN
+def text_bin(frase):
+    for a in frase:
+        bin_txt = bin(ord(a))
+        print(bin_txt[2:len(bin_txt)],end=" ")
+
+# vetor de tratamento dos parâmetros
+tratamento = ["-a","--ascii","-t","--txt",
+        "-h","--help","-b","--binary","-c","--code"]
+
+# tomada de decisão do programa com base nos argumentos isso e dos
+
+if "asciiconv" in sys.argv[-1] and 1 == len(sys.argv):
+    banner()
+    menuhelper()
+elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
+    banner()
+    menuhelper()
+elif sys.argv[1] not in tratamento:
+    banner()
+    menuhelper()
+else:
+    parameter = sys.argv[1]
+    frase = sys.argv[2]
+
+print("[",frase,"]","-> foi passado como valor\n")
+if sys.argv[1] == "-a" or sys.argv[1] == "--ascii":
+    banner()
+    print ("Em ASCII:")
+    codingascii(frase)
+elif sys.argv[1] == "-t" or sys.argv[1] == "--txt":
+    banner()
+    print ("Em formato texto:")
+    decodingascii(frase)
+elif sys.argv[1] == "-b" or sys.argv[1] == "--binary":
+    print ("Em binário:")
+    codebin(frase)
+elif sys.argv[1] == "-c" or sys.argv[1] == "--code":
+    print ("Texto -> Binário:")
+    text_bin(frase)
+else:
+    banner()
+    menuhelper()
+
+print()

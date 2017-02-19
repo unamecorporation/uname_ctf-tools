@@ -1,0 +1,86 @@
+#!/bin/bash
+#Version 1.0.0(Hercules)
+#Bruteforce de cifra de César, utilizando alfabeto Português Brasil.
+#Retire os acentos das palavras, bugs ainda não corrigidos
+
+# Tratamento dos parâmetros. Acentos podem não funcionar em sistemas não
+# configurados corretamente. Por isso, eles são tratados com a letra respectiva
+cypher=$1
+echo "$cypher" > tmp
+sed 'y/áÁàÀãÃâÂéÉêÊíÍõÕóÓôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/' < tmp > reajust
+palavra=$(cat reajust)
+
+# Funções do programa e banner
+echo -e '  ____    _    _____ ____    _    ____   ____ ___ _____ '
+echo -e ' / ___|  / \  | ____/ ___|  / \  |  _ \ / ___|_ _|  ___|'
+echo -e '| |     / _ \ |  _| \___ \ / _ \ | |_) | |    | || |_   '
+echo -e '| |___ / ___ \| |___ ___) / ___ \|  _ <| |___ | ||  _|  '
+echo -e ' \____/_/   \_\_____|____/_/   \_\_| \_\\____|___|_|    '
+echo
+echo "BruteForce de Criptografia de Cesar"
+
+helpmenu(){
+  echo -e "Bruteforce a cifra de César.";
+  echo -e "Para o uso correto do programa, tire acentos ou caracteres";
+  echo -e "especiais. Basta informar a string e seu parâmetro. Exemplo:";
+  echo -e "./caesarcd 'testando string' -a";
+  echo -e "./caesarcd 'testando string' -12";
+  exit 0;
+}
+
+# funções numéricas de 1 a 25. Cada função é um passo de letra no alfabeto
+caesar1(){   echo -e "[01] >\t$(echo "$palavra" | tr a-zA-Z bcdefghijklmnopqrstuvwxyzaBCDEFGHIJKLMNOPQRSTUVWXYZA)";}
+caesar2(){   echo -e "[02] >\t$(echo "$palavra" | tr a-zA-Z cdefghijklmnopqrstuvwxyzabCDEFGHIJKLMNOPQRSTUVWXYZAB)";}
+caesar3(){   echo -e "[03] >\t$(echo "$palavra" | tr a-zA-Z defghijklmnopqrstuvwxyzabcDEFGHIJKLMNOPQRSTUVWXYZABC)";}
+caesar4(){   echo -e "[04] >\t$(echo "$palavra" | tr a-zA-Z efghijklmnopqrstuvwxyzabcdEFGHIJKLMNOPQRSTUVWXYZABCD)";}
+caesar5(){   echo -e "[05] >\t$(echo "$palavra" | tr a-zA-Z fghijklmnopqrstuvwxyzabcdeFGHIJKLMNOPQRSTUVWXYZABCDE)";}
+caesar6(){   echo -e "[06] >\t$(echo "$palavra" | tr a-zA-Z ghijklmnopqrstuvwxyzabcdefGHIJKLMNOPQRSTUVWXYZABCDEF)";}
+caesar7(){   echo -e "[07] >\t$(echo "$palavra" | tr a-zA-Z hijklmnopqrstuvwxyzabcdefgHIJKLMNOPQRSTUVWXYZABCDEFG)";}
+caesar8(){   echo -e "[08] >\t$(echo "$palavra" | tr a-zA-Z ijklmnopqrstuvwxyzabcdefghIJKLMNOPQRSTUVWXYZABCDEFGH)";}
+caesar9(){   echo -e "[09] >\t$(echo "$palavra" | tr a-zA-Z jklmnopqrstuvwxyzabcdefghiJKLMNOPQRSTUVWXYZABCDEFGHI)";}
+caesar10(){  echo -e "[10] >\t$(echo "$palavra" | tr a-zA-Z klmnopqrstuvwxyzabcdefghijKLMNOPQRSTUVWXYZABCDEFGHIJ)";}
+caesar11(){  echo -e "[11] >\t$(echo "$palavra" | tr a-zA-Z lmnopqrstuvwxyzabcdefghijkLMNOPQRSTUVWXYZABCDEFGHIJK)";}
+caesar12(){  echo -e "[12] >\t$(echo "$palavra" | tr a-zA-Z mnopqrstuvwxyzabcdefghijklMNOPQRSTUVWXYZABCDEFGHIJKL)";}
+caesar13(){  echo -e "[13] >\t$(echo "$palavra" | tr a-zA-Z nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM)";}
+caesar14(){  echo -e "[14] >\t$(echo "$palavra" | tr a-zA-Z opqrstuvwxyzabcdefghijklmnOPQRSTUVWXYZABCDEFGHIJKLMN)";}
+caesar15(){  echo -e "[15] >\t$(echo "$palavra" | tr a-zA-Z pqrstuvwxyzabcdefghijklmnoPQRSTUVWXYZABCDEFGHIJKLMNO)";}
+caesar16(){  echo -e "[16] >\t$(echo "$palavra" | tr a-zA-Z qrstuvwxyzabcdefghijklmnopQRSTUVWXYZABCDEFGHIJKLMNOP)";}
+caesar17(){  echo -e "[17] >\t$(echo "$palavra" | tr a-zA-Z rstuvwxyzabcdefghijklmnopqRSTUVWXYZABCDEFGHIJKLMNOPQ)";}
+caesar18(){  echo -e "[18] >\t$(echo "$palavra" | tr a-zA-Z stuvwxyzabcdefghijklmnopqrSTUVWXYZABCDEFGHIJKLMNOPQR)";}
+caesar19(){  echo -e "[19] >\t$(echo "$palavra" | tr a-zA-Z tuvwxyzabcdefghijklmnopqrsTUVWXYZABCDEFGHIJKLMNOPQRS)";}
+caesar20(){  echo -e "[20] >\t$(echo "$palavra" | tr a-zA-Z uvwxyzabcdefghijklmnopqrstUVWXYZABCDEFGHIJKLMNOPQRST)";}
+caesar21(){  echo -e "[21] >\t$(echo "$palavra" | tr a-zA-Z vwxyzabcdefghijklmnopqrstuVWXYZABCDEFGHIJKLMNOPQRSTU)";}
+caesar22(){  echo -e "[22] >\t$(echo "$palavra" | tr a-zA-Z wxyzabcdefghijklmnopqrstuvWXYZABCDEFGHIJKLMNOPQRSTUV)";}
+caesar23(){  echo -e "[23] >\t$(echo "$palavra" | tr a-zA-Z xyzabcdefghijklmnopqrstuvwXYZABCDEFGHIJKLMNOPQRSTUVW)";}
+caesar24(){  echo -e "[24] >\t$(echo "$palavra" | tr a-zA-Z yzabcdefghijklmnopqrstuvwxYZABCDEFGHIJKLMNOPQRSTUVWX)";}
+caesar25(){  echo -e "[25] >\t$(echo "$palavra" | tr a-zA-Z zabcdefghijklmnopqrstuvwxyZABCDEFGHIJKLMNOPQRSTUVWXY)";}
+echo
+
+#definição da cifra de acordo com o parâmetro
+# tratamento por parâmetros nulos ou --help | -h
+if [ "$2" == "" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ "$1" == "" ]; then
+  helpmenu;
+else
+  echo -e "[nn] > \tpalavra"
+  case $2 in
+        -1 )caesar1  ;;         -2)caesar2  ;;         -3)caesar3  ;;
+        -4 )caesar4  ;;         -5)caesar5  ;;         -6)caesar6  ;;
+        -7 )caesar7  ;;         -8)caesar8  ;;         -9)caesar9  ;;
+        -10)caesar10 ;;        -11)caesar11 ;;        -12)caesar12 ;;
+        -13)caesar13 ;;        -14)caesar14 ;;        -15)caesar15 ;;
+        -16)caesar16 ;;        -17)caesar17 ;;        -18)caesar18 ;;
+        -19)caesar19 ;;        -20)caesar20 ;;        -21)caesar21 ;;
+        -22)caesar22 ;;        -23)caesar23 ;;        -24)caesar24 ;;
+        -25)caesar25 ;;
+        -a | --all)
+          for cont in $(seq 1 25); do
+            caesar$cont;
+          done
+        ;;
+        -h| --help)
+          helpmenu;
+        ;;
+        *) echo "Parâmetro não reconhecido"; exit 0; ;;
+  esac
+fi
+rm -f tmp reajust

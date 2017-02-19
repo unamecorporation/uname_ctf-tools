@@ -1,0 +1,101 @@
+#!/bin/bash
+# LEET GENERATOR, um gerador e tradutor de leet em Shell Script
+# Developer: Vandal VNL
+# GitHub: github.com/vandalvnl
+# Agradecimentos: 7R0N(por ensinar sed e regex) e Zero(por me viciar em Leet)
+################################################################################
+# Flags de uso:
+# -a || --advanced: gera um leetcode robusto, envolvendo meta caracteres
+# -b || --basic: gera um leetcode básico, apenas substituição letra=>número
+# -d || --dict: apresenta um dicionário de leetcode(pode não conter todas as referências).
+# -t || --translate: gera uma possível tradução para o leet informado
+# -h || --help: vai te ajudar a entender isso
+
+banner(){
+	echo "  _ _______________    __  _____ _   _ _____ ____  _  _ _____ ___  ____  ";
+	echo " / |___ /___ /___  |  / /_|___ /| \ | |___ /|  _ \| || |___  / _ \|  _ \ ";
+	echo " | | |_ \ |_ \  / /  | '_ \ |_ \|  \| | |_ \| |_) | || |_ / / | | | |_) |";
+	echo " | |___) |__) |/ /   | (_) |__) | |\  |___) |  _ <|__   _/ /| |_| |  _ <";
+	echo " |_|____/____//_/     \___/____/|_| \_|____/|_| \_\  |_|/_/  \___/|_| \_\\";
+	echo;
+}
+
+menu_ajuda(){
+	echo "$(basename $0) é um gerador/tradutor de LeetCode C.L.I";
+	echo "Possui 2 parâmetros para gerar um Leet e um parâmetro de Tradução.";
+	echo -e "\t-a || --advanced:\t gera um leetcode robusto, envolvendo meta caracteres." | expand -t 10;
+	echo -e "\t-b || --basic:\t gera um leetcode básico, trocando letras por números." | expand -t 10;
+	echo -e "\t-d || --dict:\t apresenta um dicionário de leetcode(pode não conter todas as referências)." | expand -t 10;
+	echo -e "\t-h || --help:\t exibe este menu de ajuda." | expand -t 10;
+	echo -e "\t-t || --translate:\t gera uma possível tradução para o leet informado." | expand -t 10;
+	echo -e "\t\t\t *utilize entre aspas para interpretar meta caracteres" | expand -t 10;
+	exit 0;
+}
+
+encurta_parametro(){
+	short_param="$(echo "$*" | sed 's/--help/-h/g ; s/--basic/-b/g ; s/--advanced/-a/g ; s/--translate/-t/g ; s/--dict/-d/g')"
+	export short_param ;
+}
+
+value_param(){
+	ajuda="/-h/d"; basico="/-b/d"; advanced="/-a/d" ; translate="/-t/d" ; dict="/-d/d";
+	valores="$(echo "$*"|tr " " "\n"|sed "${ajuda}"|sed "${basico}"|sed "${advanced}"|sed "${translate}"|sed "${dict}")";
+	export valores ;
+}
+
+flags(){
+	parametros="$(echo "$*"|tr " " "\n"|sed '/-a\|-h\|-t\|\|-d|\-b/!d')"; export parametros ;
+}
+
+basic_leet(){
+	echo "$*" | tr a-z A-Z | sed 's/A/4/g ; s/L/1/g ; s/T/7/g ; s/O/0/g ; s/B/8/g ; s/E/3/g ; s/P/9/g ; s/S/5/g ; s/Z/2/g ; s/G/6/g';
+	exit 0
+}
+
+advanced_leet(){
+	echo -ne "Advanced 1: \t" | expand -t 5
+	echo -n "$*" | tr a-z A-Z |sed 's/A/@/g ; s/B/|3/g ; s/C/</g ; s/D/|>/g ; s/E/\&/g ; s/F/|=/g; s/G/(_+/g ; s/H/#/g ; s/I/|/g ; s/J/;/g ; s/K/|{/g ; s/L/|_/g; s@M@|\/|@g ; s@N@|\\|@g ; s@O@()@g ; s/P/|^/g ; s/Q/(_,)/g ; s/R/|2/g ; s/S/$/g ; s/T/"|"/g ; s/U/|_|/g ; s@V@\\/@g ; s@W@\\/\\/@g ; s/X/></g ; s@Y@`/@g ; s/Z/¨\/_/g'
+		echo
+	echo -ne "Advanced 2: \t" | expand -t 5
+	echo -n "$*" | tr a-z A-Z |sed 's@A@/-\\@g ; s/B/ß/g ; s/C/(/g ; s/D/[)/g ; s/E/€/g ; s/F/|=/g; s/G/C-/g ; s/H/|-|/g ; s/I/!/g ; s/J/;/g ; s/K/}</g ; s/L/|_/g; s@M@/\\/\\@g ; s@N@|\\|@g ; s@O@()@g ; s/P/|^/g ; s/Q/(_,)/g ; s/R/|2/g ; s/S/$/g ; s/T/"|"/g ; s/U/|_|/g ; s@V@\\/@g ; s@W@\\/\\/@g ; s/X/)(/g ; s@Y@¥@g ; s/Z/¨\/_/g'
+	echo
+	exit 0
+}
+
+translate_leet(){
+	echo "$*" | tr a-z A-Z | sed 's/4/A/g ; s/1/L/g ; s/7/T/g ; s/0/O/g ; s/8/B/g ; s/3/E/g ; s/9/P/g ; s/5/S/g ; s/2/Z/g ; s/6/G/g';
+	echo -e "\n\t*Pode haver falhas dependendo do grau de dificuldade do leet"
+	exit 0
+}
+
+leet_dict(){
+	A="4 /\ @ /-\ ^ ä ª aye =" ;B="8 6 |3 ß P> |: =" ;C="[ ¢ < ( =" ;
+	D="|)) o| [) I> |> ? =" ;	E="3 & £ ë [- € ê |=- =" ;F="|= ph |# =" ;
+	G="6 & (_+ 9 C- gee (, =" ;	H="\# /-/ [-] {=} <~> |-| ]~[ }{ ]-[ ? 8 }-{ =" ;
+	I="1 ! | & eye 3y3 ï ][ [] =" ;	J="j ; _/ </ (/ =" ;K="X |< |{ ]{ }< |( =" ;
+	L="1 7 1_ | |_ # ¬ £ =" ;	M="//. ^^ |v| [V] {V} |\/| /\/\ (u) []V[] (V) /|\ IVI =" ;
+	N="// ^/ |\| /\/ [\] <\> {\} []\[] n /V ₪ =" ;O="0 () ?p  * ö =" ;
+	P="|^ |* |o |^(o) |> |\" 9 []D |̊ |7 =" ;	Q="q 9 (_,) =" ;
+	R="|2 P\ |? |^ lz [z 12 Я =" ;	S="5 $ z § ehs =" ;	T="7 + -|- 1 '][' \"|\" =" ;U="(_) |_| v ü" ;
+	V="\\/" ;	W="\/\/ vv '// \^/ (n) \V/ \// \X/ \|/" ; X=">< Ж ecks ou )(" ; Y="Y j \`/ ¥" ; Z="2 z ~\_ ~/_ %" ;
+	echo -e "A:$A \nB:$B \nC:$C \nC:$D \nE:$E \nF:$F \nG:$G \nH:$H \nI:$I \nJ:$J \nK:$K \nL:$L \nM:$M \nN:$N \nO:$O\nP:$P \nQ:$Q \nR:$R \nS:$S \nT:$T \nU:$U \nV:$V \nW:$W \nX:$X \nY:$Y \nZ:$Z"
+	exit 0;
+}
+encurta_parametro $* ;
+flags "$short_param";
+value_param "$short_param" ;
+
+if [[ "$(echo "$parametros"|grep '\-h')" != "" ]]; then
+	banner ;
+	menu_ajuda ;
+fi
+
+banner
+chama_flag="$(echo "$parametros" | head -1)"
+test "$chama_flag" == "" && menu_ajuda
+texto_arg="$(echo "$valores" | tr "\n" " ")"
+
+test "$chama_flag" == "-a" && echo -e "Possibilidades avançadas de Leet:" && advanced_leet $(echo -e "$valores" |tr "\n" " ") && echo;
+test "$chama_flag" == "-b" && echo -e "Leet Básico:" && basic_leet $(echo -e "$valores" |tr "\n" " ") ;
+test "$chama_flag" == "-d" && echo -e "Dicionário de Leet:" && leet_dict
+test "$chama_flag" == "-t" && echo -e "Tradução de Leet:" && translate_leet $(echo -e "$valores" |tr "\n" " ") ;

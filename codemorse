@@ -1,0 +1,120 @@
+#!/usr/bin/python3.5
+# -*- coding: utf-8 -*-
+# DecoderMorse
+# Autor: Mr. Zero
+# Colaboradores: Vandal VNL, Black Straby
+# Desenvolvida em: 16/12/2016
+# Atualização em: 23/12/2016
+
+import time,os,sys
+
+# declaração de alfabetos e dicionário
+alfabeto = ["a","b","c","d","e","f","g","h","i","j",
+            "k","l","m","n","o","p","q","r","s","t",
+            "u","v","w","x","y","z","á","à","ã","è",
+            "é","ẽ","í","ì","ĩ","ó","ò","õ","ú","ù","ũ"
+]
+morseAlphabet = { "A" : ".-","B" : "-...","C" : "-.-.",
+        "D" : "-..","E" : ".","F" : "..-.","G" : "--.",
+        "H" : "....","I" : "..","J" : ".---","K" : "-.-",
+        "L" : ".-..","M" : "--","N" : "-.","O" : "---",
+        "P" : ".--.","Q" : "--.-","R" : ".-.","S" : "...",
+        "T" : "-","U" : "..-","V" : "...-","W" : ".--",
+        "X" : "-..-","Y" : "-.--","Z" : "--.."," " : "/",
+        "1" : ".----","2" : "..---","3" : "...--","4" : "....-",
+	    "5" : ".....","6" : "-....","7" : "--...","8" : "---..",
+	    "9" : "----.","0" : "-----","." : ".-.-.-","," : "--..--",
+        ":" : "---...","?" : "..--..","'" : ".----.","-" : "-....-",
+        "/" : "-..-.","@" : ".--.-.","=" : "-...-"
+}
+text = "/ 0123456789.,:?'-/@="
+
+# Funções visuais: Ajuda e Banner
+def banner():
+    print ('''      ____ ___  ____  _____ __  __  ___  ____  ____  _____
+     / ___/ _ \|  _ \| ____|  \/  |/ _ \|  _ \/ ___|| ____|
+    | |  | | | | | | |  _| | |\/| | | | | |_) \___ \|  _|
+    | |__| |_| | |_| | |___| |  | | |_| |  _ < ___) | |___
+     \____\___/|____/|_____|_|  |_|\___/|_| \_\____/|_____|''')
+def menuhelp():
+    print ("\nParâmetros do morsecoder:")
+    print ("\t-h or --help:\tChama esse menu de ajuda")
+    print ("\t-c or --cypher:\tEncripta com código morse")
+    print ("\t-d or --decode:\tDecripta o código morse")
+    print ("morsecoder -c 'frase para morse'")
+    print ("morsecoder -d '..- -----'")
+    exit()
+
+# Definição de menu help com base nos argumentos
+if "codemorse" in sys.argv[-1] and 1 == len(sys.argv):
+    banner()
+    menuhelp()
+elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
+    banner()
+    menuhelp()
+else:
+    parametro = sys.argv[1]
+    informacao = sys.argv[2]
+# Tratamento de argumento para codificação e decofidicação
+inverseMorseAlphabet=dict((v,k) for (k,v) in morseAlphabet.items())
+if informacao in text or informacao.isalnum() or " " in informacao:
+    inverseMorseAlphabet=dict((v,k) for (k,v) in morseAlphabet.items())
+    informacao = informacao.replace("/-","/ -")
+    informacao = informacao.replace("/.","/ .")
+    informacao = informacao.replace("-/","- /")
+    informacao = informacao.replace("./",". /")
+
+# Função para decodificar o argumento passado
+def decodeMorse(code, positionInString):
+    if positionInString <= len(code):
+        morseLetter = ""
+        for key,char in enumerate(code[positionInString:]):
+            if char == " ":
+                positionInString = key + positionInString + 1
+                letter = inverseMorseAlphabet[morseLetter]
+                return letter + str(decodeMorse(code, positionInString))
+            else:
+               morseLetter += char
+        else:
+            return ""
+
+# Função para codificar o argumento passado
+def encodeToMorse(message):
+    encodedMessage = ""
+    for char in message[:]:
+        encodedMessage += morseAlphabet[char.upper()] + " "
+    return encodedMessage
+
+# Controle de fluxo do programa com base nos parâmetros passados
+if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+    banner()
+    menuhelp()
+
+elif sys.argv[1] == "-c" or sys.argv[1] == "--cypher":
+    banner()
+    print ("")
+    testCode = informacao
+    codado = (encodeToMorse(testCode))
+    print("Codificando.. ")
+    time.sleep(1)
+    print(codado)
+
+elif parametro == "-d" or parametro == "--decode" or informacao == "":
+    banner()
+    testCode = informacao
+    testCode = testCode.replace(" /","")
+    temporario = sys.argv[2]
+    letras,contador = 0,0
+    for letratxt in alfabeto:
+        if temporario[letras] == alfabeto[contador].lower():
+            print ("Erro de sintaxe...")
+            exit()
+    print ("")
+    temp = 0
+    decodado = decodeMorse(testCode + " ", temp)
+    print("Decodificando...")
+    print (decodado)
+    time.sleep(1)
+    temp += 1
+else:
+    print ("Opção inválida")
