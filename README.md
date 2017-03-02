@@ -13,7 +13,7 @@
 
 <hr>
 
-<h3>Fique de olho em <a href="https://www.facebook.com/unamecorporation">UnameCorp</a>, por que o futuro no pode ser nomeado</h3>
+<h3>Fique de olho em <a href="https://www.facebook.com/unamecorporation">UnameCorp</a>, por que o futuro não pode ser nomeado</h3>
 
 <hr>
 
