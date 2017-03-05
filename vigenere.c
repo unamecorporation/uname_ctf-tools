@@ -1,12 +1,10 @@
-﻿/*
+/*
 ############################
 ##Cifra de Vigenere#########
 ##Developed by rmdir########
 ##for KurupiraOS <3 :D######
 ############################
 ############################
-
-#Sinta-se livre para editar, aprimorar, enxugar(kkk uso muito na fauldade),este codigo.
 */
 
 //Bibliotecas usadas//
@@ -21,10 +19,10 @@
 int so(){
 	int SO;
 	#ifdef __linux__
-	SO=0;
+		SO=0;
 	#endif
 	#ifdef _WIN32
-	SO=1;
+		SO=1;
 	#endif
 	return SO;
 }
@@ -66,6 +64,7 @@ printf("\n	888     888d8b                                                \n	888 
 }
 //Funcao que encripta um texto usando a cifra de Vigenere//
 void encript(char* Text,char* key){
+	banner("");
 	int i=0,j,lenText=0,lenkey=0;
 	lenText=strlen(Text);
 	char TextEncrypted[lenText];
@@ -76,7 +75,7 @@ void encript(char* Text,char* key){
         newkey[i] = key[j];
     }
         newkey[lenText] = '\0';
-		printf("\n	PALAVRA PURA= %s\n	CHAVE = %s\n",Text,key);
+		printf("\n	TEXTO ORIGINAL = %s\n	CHAVE = %s\n",Text,key);
 		printf("	TEXTO CIFRADO = ");
 	for(i=0;i<lenText;i++){
 		TextEncrypted[i]=(Text[i]+newkey[i])%26+65;
@@ -85,6 +84,7 @@ void encript(char* Text,char* key){
 }
 //Funcao que decripta um texto usando a cifra de Vigenere//
 void decript(char* TextEncrypted,char* key){
+	banner("");
     int lenTextEncrypted=strlen(TextEncrypted);
 	char Text[lenTextEncrypted];
     char newkey[lenTextEncrypted];
@@ -93,7 +93,7 @@ void decript(char* TextEncrypted,char* key){
 		j=i%strlen(key);
 		newkey[i]=key[j];
     }
-    printf("\n	PALAVRA CIFRADA= %s\n	CHAVE = %s\n",TextEncrypted,key);
+    printf("\n	TEXTO CIFRADO = %s\n	CHAVE = %s\n",TextEncrypted,key);
 	printf("	TEXTO DESCIFRADO = ");
     for(i=0;i<lenTextEncrypted;i++){
 		Text[i]=(TextEncrypted[i]-newkey[i]+26)%26+65;
@@ -103,9 +103,10 @@ void decript(char* TextEncrypted,char* key){
 }
 //Funcao principal//
 int main(int argc, char **argv){
-	if(so()==0){//Se a plataforma for linux uso o comando para mudar a cor do terminal//
-		system("setterm -foreground green");
-	}else if(so()==1){// Se windows uso o color para mudar a cor do cmd//
+	char* saudacao=NULL;
+	if(so()==0){//Se a plataforma for linux uso o comando para saudar o usuario//
+		system("echo \"Olá, `whoami`...\"");
+	}else if(so()==1){// Se windows uso o color para mudar a cor do prompt//
 		system("color 02");
 	}
 	 int opt,i,aux;
