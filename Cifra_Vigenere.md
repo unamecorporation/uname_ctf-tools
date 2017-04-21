@@ -15,7 +15,7 @@ Este é o menu que será exibido no parâmetro -h:
 > ./vigenere -h:
 <img src="https://github.com/RogerMonteiro124/C/blob/master/Vigenere_help.png" />
 <h3>Dependências</h3>
-</br>Não necessita de dependências especiais que já não estejam no sistema operacional.
+Não necessita de dependências especiais que já não estejam no sistema operacional.
 
 
 ### Relatório de bugs:
