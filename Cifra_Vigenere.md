@@ -1,6 +1,6 @@
 ﻿
 # Cifra de Viginère
-##### Desenvolvedor: Roger Monteiro (rmdir)
+##### Desenvolvedor: Roger Monteiro <a href="www.telegram.me/rmdir0x00>rmdir</a>
 ##### Linguagem utilizada: Linguagem C
 ##### Versão atual: 1.0 - Oficial
 ##### Licença: GPL (Tipo da licença da ferramenta)
