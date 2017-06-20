@@ -153,6 +153,8 @@ def main():
 		ua=UserAgent()
 		ua.update
 		user=ua.random
+		url='http://'+urlAlvo()
+		conectaSite(user,url)
 	else:
 		print "Opção invalida"
 		main()
