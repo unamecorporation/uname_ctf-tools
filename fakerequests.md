@@ -9,6 +9,7 @@
 </br>
 Fake requests é uma ferramenta que foi desenvolvida com ituito de ajudar na resolução de desafios, nos quais, a flag a ser encontrada está em um local que só pode ser acessado com tal configuração.
 Nesta versão está sendo oferecida a possibilidade de usar um user agent fake, de uma lista ou randômico, para acessar um host/página da WEB, que especifique as configurações de entradas aceitas.
+
 ### Menu da ferramenta
 Ao fazer a chamada da fakeRequests será apresentado a seguinte tela, solicitando uma opção:
 <img src="https://github.com/RogerMonteiro124/Python/blob/master/Menu.png"/>
